@@ -20,9 +20,12 @@ sudo chmod +x /usr/bin/docker-compose
 #######################
 docker-compose up -d
 #######################
+mkdir ./nginx/var/www/proxypage
+cp wp.jpg ./nginx/var/www/proxypage
 cp index.php ./nginx/var/www
 cp testdomain.com_nginx.crt ./nginx/conf
 cp testdomain.com_nginx.key ./nginx/conf
 cp ssl ./nginx/conf
 cp default.conf ./nginx/conf
+docker stop nginx && docker start nginx
 
