@@ -1,0 +1,43 @@
+version: '3.7'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/var/www:/var/www
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./nginx/logs:/var/log/nginx
+    links:
+      - php
+    restart: always
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=qwertybox
+      - MYSQL_DATABASE=box
+      - MYSQL_USER=box
+      - MYSQL_PASSWORD=box
+    volumes:
+      - ./mysql:/var/lib/mysql
+    restart: always
+
+  php:
+    build:
+      context: .
+      dockerfile: php.docker
+    image: php:gin
+    container_name: php
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./nginx/var/www:/var/www
+      - ./php/logs:/var/log
+    links:
+      - mysql
