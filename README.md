@@ -1,8 +1,7 @@
 # nginx_php_mysql_docker
-Тестирование проводилось на Ubuntu, если необходимо для Centos\Red Hat
-то нужно только изменить строку установки docker в start.sh
-Для универсальности можно сделать запуск нужной команды в зависимости от OS 
-Например:
+Testing was on Ubuntu, if necessary for Centos\Red Hat, then you only need 
+to change the docker installation line in start.sh For universality, 
+you can run the required command depending on the OS For example:
 os=$(cat /etc/os-release | grep "^NAME" | awk -F = '{print $2}')
 if [$os -eq "Ubuntu"]
 then
@@ -11,18 +10,18 @@ else
 ....
 fi
 
-Файлы копируются в любой каталог
-Запустить start.sh
-Если не установлен docker & docker-compose - скрипт скачает данные и установить
-Если все установлено - игнорируется
-NGinx & MySql установлены из репозитория DockerHub
-PHP собирался через Dockerfile(php.docker) - в принципе лучше все сервисы
-собрать под проект - компилировать имедж только с необходимыми данными + 
-сразу можно сделать всю предварительную настройку
-Файл настроек nginx (default.conf) - имя сайта не прописывал можно тестировать с любым именем
-Переадресация www прописана но кроме этого нужно еще DNS запись A прописать (www.domain.name A IP)
-По поводу доступа к MySQL - сделан доступ только с хоста
-(в docker-compose.yml в настройках портов "127.0.0.1:3306:3306")
-Но все это можно откорректировать либо локальным iptables либо настройками SecurityGroup в aws (или другом Cloud)
+Files are copied to any directory
+Run start.sh
+If docker & docker-compose is not installed - the script will download the data 
+and install If everything is set - ignored.
+NGinx & MySql installed from the DockerHub repository
+PHP was compiled via Dockerfile (php.docker) - better all services
+build for the project, compile the image only with the necessary data +
+all pre-setting can be done at once
+The nginx settings file (default.conf) - the site name did not register, you can test with any name
+The www redirection is registered, but besides that, you also need to register a DNS record A (www.domain.name A IP)
+Regarding access to MySQL - access is made only from the host
+(in docker-compose.yml in port settings "127.0.0.1:3306:3306")
+But all this can be adjusted either with local iptables or with SecurityGroup settings in aws (or another Cloud)
 
 При заходе на http://IP/proxypage/wp.jpg - показывает ресурс
